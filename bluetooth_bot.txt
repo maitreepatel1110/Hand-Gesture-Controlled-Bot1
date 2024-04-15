@@ -1,0 +1,70 @@
+int motorIn1=9;
+int motorIn2=10;
+int motorIn3=11;
+int motorIn4=12;
+char Incoming_value=0;
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(motorIn1,OUTPUT);
+  pinMode(motorIn2,OUTPUT);
+  pinMode(motorIn3,OUTPUT);
+  pinMode(motorIn4,OUTPUT);
+  Serial.begin(9600);
+}
+
+void forward(){
+  digitalWrite(motorIn1,LOW);//LEFT WHEEL
+  digitalWrite(motorIn2,HIGH);
+  digitalWrite(motorIn3,LOW);//RIGHT WHEEL
+  digitalWrite(motorIn4,HIGH);
+}
+void backward(){
+  digitalWrite(motorIn1,HIGH);//LEFT WHEEL
+  digitalWrite(motorIn2,LOW);
+  digitalWrite(motorIn3,HIGH);//RIGHT WHEEL
+  digitalWrite(motorIn4,LOW);
+}
+void leftTurn(){
+  digitalWrite(motorIn1,HIGH);//LEFT WHEEL
+  digitalWrite(motorIn2,LOW);
+  digitalWrite(motorIn3,LOW);//RIGHT WHEEL
+  digitalWrite(motorIn4,HIGH);
+}
+void rightTurn(){
+  digitalWrite(motorIn1,LOW);//LEFT WHEEL
+  digitalWrite(motorIn2,HIGH);
+  digitalWrite(motorIn3,HIGH);//RIGHT WHEEL
+  digitalWrite(motorIn4,LOW);
+}
+void stops(){
+  digitalWrite(motorIn1,LOW);
+  digitalWrite(motorIn2,LOW);
+  digitalWrite(motorIn3,LOW);
+  digitalWrite(motorIn4,LOW);
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  if(Serial.available()>0){
+    Incoming_value = Serial.read();
+    if (Incoming_value == '1')
+    forward();
+    else if(Incoming_value == '0')
+    stops();
+    else if (Incoming_value == '2')
+    leftTurn();
+    else if(Incoming_value == '3')
+    stops();
+    else if (Incoming_value == '4')
+    rightTurn();
+    else if(Incoming_value == '5')
+    stops();
+    else if (Incoming_value == '6')
+    backward();
+    else if(Incoming_value == '7')
+    stops();
+    else
+    stops();
+  }
+}
